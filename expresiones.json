@@ -1,0 +1,8 @@
+{
+    "expresiones":[
+        {
+            "nombre":"Entero",
+            "expresion":"/[0-9]*"
+        }
+    ]
+}

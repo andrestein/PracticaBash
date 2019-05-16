@@ -1,0 +1,222 @@
+menu(){
+    clear
+    echo "---------------------Menu Principal---------------------"
+    echo "1.COMANDOS GENERALES"
+    echo "2.USUARIOS"
+    echo "3.SISTEMA DE ARCHIVOS"
+    echo "9.TERMINAR"
+    echo "Seleccione la opcion deseada y presione enter: "
+    read opcion
+    case $opcion in 
+      1) 
+        menuGeneral
+      ;;
+      2) 
+        menuUsuarios
+      ;;
+      3) 
+        menuArchivos
+      ;;
+      9) 
+        exit 0
+      ;;
+      *) 
+        echo "La opcion no existe"
+        menu
+      ;;  
+    esac
+}
+menuGeneral() {
+  clear
+    echo "-------------Comandos Generales-------------"
+    echo "1.HORA DEL SISTEMA"
+    echo "2.RUTA ACTUAL"
+    echo "3.CAMBIO DE PASSWORD"
+    echo "4.MOSTRAR DISCO LIBRE"
+    echo "5.MOSTRAR DISCO UTILIZADO"
+    echo "6.VER PROCESOS ACTIVOS"
+    echo "9.VOLVER AL MENU INICIAL"
+    echo "Seleccione la opcion deseada y presione enter: "
+    read option
+    case $option in 
+    1) 
+      clear
+      date
+      echo "Presione una tecla para continuar..."
+      read s
+      menuGeneral
+     ;;
+    2) 
+      clear   
+      pwd
+      echo "Presione una tecla para continuar..."
+      read s
+      menuGeneral
+      ;; 
+    3) 
+      clear   
+      passwd     
+      echo "Presione una tecla para continuar..."
+      read s
+      menuGeneral
+      ;; 
+    4) 
+      clear
+      df -h --output=avail
+      echo "Presione una tecla para continuar..."
+      read s
+      menuGeneral
+      ;;
+    5) 
+      clear
+      df -h --output=used
+      echo "Presione una tecla para continuar..."
+      read s
+      menuGeneral
+      ;;
+    6) 
+      clear
+      ps
+      echo "Presione una tecla para continuar..."
+      read s
+      menuGeneral
+     ;;   
+    9) menu;;
+    *) echo "La opcion no existe"
+      menuGeneral
+    ;;
+  esac
+}
+
+menuUsuarios(){
+clear
+    echo "------------------Varios Usuarios------------------"
+    echo "1.MOSTRAR NOMBRE DE USUARIOS CONECTADOS"
+    echo "2.MOSTRAR NUMERO DE USUARIOS CONECTADOS"
+    echo "3.AVERIGUAR SI UN USUARIO ESTA CONECTADO"
+    echo "4.ENVIAR MENSAJE A UN USUARIO"
+    echo "9.VOLVER AL MENU INICIAL"
+    echo "Seleccione la opcion deseada y presione enter: "
+    read option
+    case $option in 
+    1)
+        clear
+        users
+        echo "Presione una tecla para continuar..."
+        read s
+        menuUsuarios
+      ;;
+    2) 
+      clear
+      users | wc -w
+      echo "Presione una tecla para continuar..."
+      read s
+      menuUsuarios;;
+    3) 
+      clear
+      echo "Ingrese el nombre del usuario"
+      read userName2
+      who | grep $userName2
+      echo "Presione una tecla para continuar..."
+      read s
+      menuUsuarios;;
+    4) 
+      clear 
+      echo "Ingrese el nombre del usuario"
+      read userName
+      echo "Ingrese el mensaje que desea enviar"
+      read message
+      write $userName $message
+      echo "Presione una tecla para continuar..."
+      read s
+      menuUsuarios
+      ;;
+    9) menu;;
+    *) echo "La opcion no existe"
+      menuUsuarios
+    ;;
+  esac
+}
+
+menuArchivos(){
+clear
+    echo "----------------- Menu de Archivos-------------------"
+    echo "1.CREAR DIRECTORIO"
+    echo "2.COPIAR ARCHIVOS"
+    echo "3.MODIFICAR PERMISOS A UN ARCHIVO"
+    echo "4.VER EL CONTENIDO DE UN ARCHIVO"
+    echo "5.BORRAR UN ARCHIVO" 
+    echo "6.CAMBIAR EL NOMBRE UN ARCHIVO" 
+    echo "7.BORRAR UN DIRECTORIO"  
+    echo "9.VOLVER AL MENU INICIAL"
+    echo "Seleccione la opcion deseada y presione enter: "
+    read option
+    case $option in 
+    1)
+      clear
+      echo "Ingrese el nombre del directorio"
+      read dirName
+      mkdir $dirName
+      echo "Presione una tecla para continuar..."
+      read s
+      menuArchivos;;
+    2) 
+      clear
+      echo "Ingrese el nombre del archivo fuente"
+      read origin
+      echo "Ingrese el nombre del archivo destino"
+      read destiny
+      cp $origin $destiny
+      echo "Presione una tecla para continuar..."
+      read s
+      menuArchivos;;
+    3) 
+      clear
+      echo "Presione una tecla para continuar..."
+      read s
+      menuArchivos;;
+    4) 
+      clear 
+      echo "Ingrese el nombre del archivo"
+      read fileName
+      cat $fileName
+      echo "Presione una tecla para continuar..."
+      read s
+      menuArchivos
+      ;;
+    5) 
+      clear 
+      echo "Ingrese el nombre del archivo"
+      read  dName
+      rm $dName
+      echo "Presione una tecla para continuar..."
+      read s
+      menuArchivos
+      ;;
+    6) 
+      clear 
+      echo "Ingrese el nombre del archivo"
+      read  nfile
+      echo "Ingrese el nombre nuevo"
+      read  newName
+      mv $nfile $newName
+      echo "Presione una tecla para continuar..."
+      read s
+      menuArchivos
+      ;;
+    7) 
+      clear 
+      echo "Ingrese el nombre del directorio, debe estar vacio"
+      read dirName
+      rmdir $dirName
+      echo "Presione una tecla para continuar..."
+      read s
+      menuArchivos
+      ;;
+    9) menu;;
+    *) echo "La opcion no existe"
+      menuArchivos
+  esac
+}
+
+menu
